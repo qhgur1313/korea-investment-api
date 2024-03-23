@@ -71,6 +71,62 @@ impl DailyPriceParameter {
 }
 
 #[derive(Debug, Clone, Getters, CopyGetters, Serialize)]
+pub struct PeriodicPriceParameter {
+    #[getset(get = "pub")]
+    fid_cond_mrkt_div_code: MarketCode, // FID 조건 시장 분류 코드
+    #[getset(get = "pub")]
+    fid_input_iscd: String, // FID 입력 종목코드
+    #[getset(get = "pub")]
+    fid_input_date_1: String, // 조회 시작일자 YYYYMMDD
+    #[getset(get = "pub")]
+    fid_input_date_2: String, // 조회 종료일자 YYYYMMDD
+    #[getset(get = "pub")]
+    fid_period_div_code: PeriodCode, // FID 기간 분류 코드
+    #[getset(get = "pub")]
+    fid_org_adj_prc: u8, // FID 수정주가 원주가 가격(수정주가 반영: 0, 수정주가 미반영: 1)
+}
+
+impl PeriodicPriceParameter {
+    pub fn new(
+        market_code: MarketCode,
+        shortcode: String,
+        start_date: String,
+        end_date: String,
+        period_code: PeriodCode,
+        is_adjust_price: bool,
+    ) -> Self {
+        Self {
+            fid_cond_mrkt_div_code: market_code,
+            fid_input_iscd: shortcode,
+            fid_input_date_1: start_date,
+            fid_input_date_2: end_date,
+            fid_period_div_code: period_code,
+            fid_org_adj_prc: match is_adjust_price {
+                true => 0,
+                false => 1,
+            },
+        }
+    }
+
+    pub fn into_iter(&self) -> [(&'static str, String); 6] {
+        [
+            (
+                "FID_COND_MRKT_DIV_CODE",
+                format!("{}", self.fid_cond_mrkt_div_code),
+            ),
+            ("FID_INPUT_ISCD", self.fid_input_iscd.clone()),
+            ("FID_INPUT_DATE_1", self.fid_input_date_1.clone()),
+            ("FID_INPUT_DATE_2", self.fid_input_date_2.clone()),
+            (
+                "FID_PERIOD_DIV_CODE",
+                format!("{}", self.fid_period_div_code),
+            ),
+            ("FID_ORG_ADJ_PRC", format!("{}", self.fid_org_adj_prc)),
+        ]
+    }
+}
+
+#[derive(Debug, Clone, Getters, CopyGetters, Serialize)]
 pub struct VolumeRankParameter {
     #[getset(get = "pub")]
     fid_cond_mrkt_div_code: MarketCode, // 조건 시장 분류 코드(J)

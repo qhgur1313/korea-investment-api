@@ -232,6 +232,8 @@ pub enum TrId {
     // Quote
     #[serde(rename = "FHKST01010400")]
     DailyPrice,
+    #[serde(rename = "FHKST03010100")]
+    PeriodicPrice,
     #[serde(rename = "FHPST01710000")]
     VolumeRank,
     // Market data
@@ -260,6 +262,7 @@ impl Into<String> for TrId {
             TrId::VirtualStockCorrection => "VTTC0803U",
             // Quote
             TrId::DailyPrice => "FHKST01010400",
+            TrId::PeriodicPrice => "FHKST03010100",
             TrId::VolumeRank => "FHPST01710000",
             // Market data
             TrId::RealtimeExec => "H0STCNT0",
@@ -490,18 +493,18 @@ impl std::fmt::Display for MarketCode {
 #[derive(Clone, Debug, Deserialize, SerializeDisplay)]
 pub enum PeriodCode {
     #[serde(rename = "D")]
-    ThirtyDays,
+    Days,
     #[serde(rename = "W")]
-    ThirtyWeeks,
+    Weeks,
     #[serde(rename = "M")]
-    ThirtyMonths,
+    Months,
 }
 impl std::fmt::Display for PeriodCode {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         f.write_str(match self {
-            Self::ThirtyDays => "D",
-            Self::ThirtyWeeks => "W",
-            Self::ThirtyMonths => "M",
+            Self::Days => "D",
+            Self::Weeks => "W",
+            Self::Months => "M",
         })
     }
 }

@@ -2,6 +2,7 @@ use getset::Getters;
 use serde::Deserialize;
 
 pub type DailyPriceResponse = QuoteResponse<output::DailyPrice>;
+pub type PeriodicPriceResponse = QuoteResponse2<output::PeriodicPrice>;
 pub type VolumeRankResponse = QuoteResponse<output::VolumeRank>;
 
 #[derive(Clone, Debug, Deserialize, Getters)]
@@ -14,6 +15,18 @@ pub struct QuoteResponse<T> {
     msg1: String, // 응답메시지
     #[getset(get = "pub")]
     output: Option<Vec<T>>, // 응답 상세
+}
+
+#[derive(Clone, Debug, Deserialize, Getters)]
+pub struct QuoteResponse2<T> {
+    #[getset(get = "pub")]
+    rt_cd: String, // 0: 성공, 0 이외의 값: 실패
+    #[getset(get = "pub")]
+    msg_cd: String, // 응답코드
+    #[getset(get = "pub")]
+    msg1: String, // 응답메시지
+    #[getset(get = "pub")]
+    output2: Option<Vec<T>>, // 응답 상세
 }
 
 pub mod output {
@@ -51,6 +64,20 @@ pub mod output {
         flng_cls_code: ExCode, // 락 구분 코드
         #[getset(get = "pub")]
         acml_prtt_rate: String, // 누적 분할 비율
+    }
+
+    #[derive(Clone, Debug, Deserialize, Getters)]
+    pub struct PeriodicPrice {
+        #[getset(get = "pub")]
+        stck_bsop_date: String, // 주식 영업 일자
+        #[getset(get = "pub")]
+        stck_oprc: String, // 주식 시가
+        #[getset(get = "pub")]
+        stck_hgpr: String, // 주식 최고가
+        #[getset(get = "pub")]
+        stck_lwpr: String, // 주식 최저가
+        #[getset(get = "pub")]
+        stck_clpr: String, // 주식 종가
     }
 
     #[derive(Clone, Debug, Deserialize, Getters)]
