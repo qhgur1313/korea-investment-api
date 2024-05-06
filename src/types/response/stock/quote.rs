@@ -78,6 +78,10 @@ pub mod output {
         stck_lwpr: String, // 주식 최저가
         #[getset(get = "pub")]
         stck_clpr: String, // 주식 종가
+        #[getset(get = "pub")]
+        acml_vol: String, // 누적 거래량
+        #[getset(get = "pub")]
+        acml_tr_pbmn: String, // 누적 거래 대금
     }
 
     #[derive(Clone, Debug, Deserialize, Getters)]

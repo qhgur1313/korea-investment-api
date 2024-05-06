@@ -23,7 +23,7 @@ impl Header {
     }
 }
 
-pub mod Body {
+pub mod body {
     use crate::types::{CorrectionClass, OrderClass, Price, Quantity};
     use serde::{Deserialize, Serialize};
 

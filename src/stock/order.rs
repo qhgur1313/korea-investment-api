@@ -46,7 +46,7 @@ impl Korea {
         qty: Quantity,
         price: Price,
     ) -> Result<response::stock::order::Body::Order, Error> {
-        let request = request::stock::order::Body::Order::new(
+        let request = request::stock::order::body::Order::new(
             self.account.cano.clone(),
             self.account.acnt_prdt_cd.clone(),
             pdno.to_string(),
@@ -109,7 +109,7 @@ impl Korea {
         qty: Quantity,
         price: Price,
     ) -> Result<response::stock::order::Body::Order, Error> {
-        let request = request::stock::order::Body::Correction::new(
+        let request = request::stock::order::body::Correction::new(
             self.account.cano.clone(),
             self.account.acnt_prdt_cd.clone(),
             krx_fwdg_ord_orgno.to_string(),
