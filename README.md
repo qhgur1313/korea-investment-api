@@ -1,5 +1,10 @@
 # 한국투자증권 API for Rust
 
+This project is a fork of [korea-investment-api](https://github.com/Xanthorrhizol/korea-investment-api)
+## Credits
+This crate is based on the work of [Xanthorrhizol](https://github.com/Xanthorrhizol)
+
+
 ## 현재 지원되는 기능
 
 - 인증
